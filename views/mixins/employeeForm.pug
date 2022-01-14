@@ -1,0 +1,54 @@
+mixin employeeForm(url, employee, titles, stateslist)
+
+    form.employee-form(action=url method= 'post')
+        div.name-row
+            div.first
+                label(for='first') First Name:
+                input(id='first' name='first' type='text' value=employee.first)
+            div.last
+                label(for='last') Last Name:
+                input(id='last' name='last' type='text' value=employee.last)
+
+        label(for='title') Job Title:
+        select(id='title' name='title')
+            each title in titles
+                option(value=title selected=employee.title===title) #{title}
+
+        div.address
+            div.street
+                div.street1
+                    label(for='street1') Street Line 1:
+                    input(id='street1' name='street1' type='text' value=employee.street1)
+
+                div.street2
+                    label(for='street2') Street Line 2:
+                    input(id='street2' name='street2' type='text' value=employee.street2)
+            div.territory
+                div.city
+                    label(for='city') City:
+                    input(id='city' name='city' type='text' value=employee.city)
+
+                div.state
+                    label(for='state') State:
+                    select(id='state' name='state')
+                        each state in stateslist
+                            option(value=state selected=employee.state===state) #{state}
+
+                div.zip
+                    label(for='zip') Zip:
+                    input(id='zip' name='zip' type='number' value=employee.zip)
+
+        div.personal-info-row
+            div.phone
+                label(for='phone') Phone Number:
+                input(id='phone' name='phone' type='number' value=employee.phone)
+
+            div.year
+                label(for='yearstarted') Year Hired:
+                input(id='yearstarted' name='yearstarted' type='number' value=employee.yearstarted)
+
+            div.form-buttons
+                a.button.cancel(href='/') Cancel
+                if employee.id
+                    a.button.delete(href=`/delete/${employee.id}`) Delete Employee
+                button.button.submit(type='submit') Submit
